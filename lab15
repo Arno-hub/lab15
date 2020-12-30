@@ -1,0 +1,56 @@
+Question 1
+
+On rebranche la carte et on lance picocom pour se connecter à la carte. 
+On arrête le processus de démarrage en appuyant sur la barre espace. 
+Sur l'invite de commande de u-boot on utilise la commande tftp pour charger le noyau (adresse : 0x81000000) etle fichier DTb (adresse : 0x82000000) dans la mémoire DRAM de la BeagleBoard tel que : 
+--> tftp 0x81000000 zImage 
+--> tftp 0x82000000 am335x
+
+Question 2
+
+On boot ensuite le noyau avec la commande bootz tel que : 
+
+bootz 0x81000000-0x82000000
+
+On remarque que le noyau n'arrive pas a démarrer ni lancer une invite de commande car le processus de demarrage n'est pas automatisé, il faut donc configurer la variable d'environnement bootcmd 
+pour automatiser le processus de démarrage et éviter de devoir taper les commandes tftp U-Boot à 
+chaque réinitialisation et bootage du noyau. 
+
+Question 3 
+
+Pour charger le noyau et le fichier dtb automatiquement à chaque démarrage de la carte. 
+On configure la variable d'environnement bootcmd pour automatiser le processus de démarrage tel que : 
+setenv bootcmd 'tftp 0x81000000 zImage ; tftp 0x82000000 am335x ; bootz'
+
+Question 4
+
+On reboot ensuite la carte et on vérifie que le noyau se charge automatiquement sans intervention.
+On remarque que c'est le cas comme en témoigne le chargement suivant : 
+
+Loading Environment from MMC... OK
+Net:   cpsw, usb_ether
+Press SPACE to abort autoboot in 2 seconds
+cpsw Waiting for PHY auto negotiation to complete.. done
+link up on port 0, speed 100, full duplex
+Using cpsw device
+TFTP from server 192.168.0.1; our IP address is 192.168.0.100
+Filename 'zImage'.
+Load address: 0x81000000
+Loading: #################################################################
+         #################################################################
+         #################################################################
+         #################################################################
+         #################################################################
+         #################################################################
+         ###################################
+         736.3 KiB/s
+done
+Bytes transferred = 6226432 (5f0200 hex)
+link up on port 0, speed 100, full duplex
+Using cpsw device
+TFTP from server 192.168.0.1; our IP address is 192.168.0.100
+Filename 'zImage'.
+Load address: 0x82000000
+Loading: #################################################################
+
+
