@@ -2,7 +2,7 @@ Question 1
 
 On rebranche la carte et on lance picocom pour se connecter à la carte. 
 On arrête le processus de démarrage en appuyant sur la barre espace. 
-Sur l'invite de commande de u-boot on utilise la commande tftp pour charger le noyau (adresse : 0x81000000) etle fichier DTb (adresse : 0x82000000) dans la mémoire DRAM de la BeagleBoard tel que : 
+Sur l'invite de commande de u-boot on utilise la commande tftp pour charger le noyau (adresse : 0x81000000) et le fichier DTb (adresse : 0x82000000) dans la mémoire DRAM de la BeagleBoard tel que : 
 --> tftp 0x81000000 zImage 
 --> tftp 0x82000000 am335x
 
